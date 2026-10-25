@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>動詞 · Verbos japoneses</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f1e3;--card:#fffaf0;--ink:#2b2220;--red:#c1272d;--mut:#7a6a5f;--ok:#2e7d4f;--bad:#b3261e;--line:#e3d6bd;--blue:#2a5d8f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1716;--card:#2a2120;--ink:#f3e9d8;--mut:#b5a595;--line:#43352f;--red:#e0545a;--blue:#7fb2e5}}
+:root[data-theme="dark"]{--bg:#1d1716;--card:#2a2120;--ink:#f3e9d8;--mut:#b5a595;--line:#43352f;--red:#e0545a;--blue:#7fb2e5}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',serif;background-image:radial-gradient(circle at 100% 100%,transparent 55%,var(--line) 56%,var(--line) 58%,transparent 59%),radial-gradient(circle at 0 100%,transparent 55%,var(--line) 56%,var(--line) 58%,transparent 59%);background-size:44px 22px;background-attachment:fixed}
+header{text-align:center;padding:34px 16px 10px}
+.sun{width:64px;height:64px;border-radius:50%;background:var(--red);margin:0 auto 10px;display:grid;place-items:center;color:#fff;font-size:34px;font-weight:700}
+h1{margin:0;font-size:1.9rem;letter-spacing:.15em}header p{margin:4px 0 0;color:var(--mut)}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:14px 12px;max-width:900px;margin:auto}
+button{font:inherit;cursor:pointer}
+.f{border:1.5px solid var(--red);background:var(--card);color:var(--red);padding:7px 14px;border-radius:999px}
+.f.on{background:var(--red);color:#fff}
+.q{display:block;margin:4px auto 10px;background:var(--ink);color:var(--bg);border:0;padding:10px 22px;border-radius:8px;font-weight:700}
+.cnt{text-align:center;color:var(--mut);font-size:.9rem}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;max-width:1100px;margin:16px auto;padding:0 16px 40px}
+.c{perspective:900px;height:580px;cursor:pointer}
+.in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.c.fl .in{transform:rotateY(180deg)}
+.s{position:absolute;inset:0;backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:10px;box-shadow:0 3px 10px #0002;padding:12px;overflow:auto}
+.fr{display:grid;place-items:center;text-align:center}
+.fr b{font-size:3.6rem;font-weight:400;line-height:1.1;display:block}
+.fr .h{font-family:'Noto Sans JP',sans-serif;font-size:1.3rem;color:var(--red);margin-top:8px}
+.fr small{color:var(--mut);display:block;margin-top:10px;font-size:1.05rem}
+.bk{transform:rotateY(180deg);font-size:.84rem;line-height:1.35}
+.bk p{margin:5px 0}.bk i{color:var(--mut)}
+.jp{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif}
+.tag{display:inline-block;font-size:.72rem;border:1px solid var(--blue);color:var(--blue);border-radius:999px;padding:1px 8px}
+table{width:100%;border-collapse:collapse;margin:6px 0;font-size:.95rem}
+th{font-size:.7rem;color:var(--mut);font-weight:400}
+td,th{border-bottom:1px solid var(--line);padding:3px 4px;text-align:center}
+td:first-child{text-align:left;color:var(--mut);font-size:.72rem}
+.ex{font-size:1.02rem;line-height:1.55;font-weight:500}
+.lb{font-size:.68rem;color:var(--red);font-weight:700;letter-spacing:.05em}
+.ro{color:var(--mut);font-size:1rem;margin-top:2px}td i{font-size:.62rem;color:var(--mut);font-style:normal;display:block}
+#quiz{max-width:560px;margin:20px auto 40px;padding:24px 16px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:12px}
+#quiz .big{font-size:4.5rem;line-height:1.2;color:var(--red)}
+.o{display:block;width:100%;margin:8px 0;padding:11px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.o.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.o.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
+.msg{min-height:28px;font-weight:700}
+[hidden]{display:none!important}
+</style></head><body>
+<header><div class="sun">動</div><h1>動詞 · VERBOS</h1><p>Aprende verbos japoneses · forma informal y formal</p></header>
+<div id="home"><nav id="nav"></nav><button class="q" id="qb"></button><div class="cnt" id="cnt"></div><div id="grid"></div></div>
+<div id="quiz" hidden></div>
+<script>
+// verbo|lectura|grupo|español|categoría|ej. formal|español|ej. informal|español
+const RAW=`食べる|たべる|2|comer|d|毎朝パンを食べます。|Como pan todas las mañanas.|これ、食べない？|¿No te comes esto?
+飲む|のむ|1|beber|d|水を飲みます。|Bebo agua.|コーヒー飲む？|¿Tomas café?
+寝る|ねる|2|dormir, acostarse|d|十一時に寝ます。|Me acuesto a las once.|もう寝た？|¿Ya te dormiste?
+起きる|おきる|2|levantarse, despertar|d|六時に起きます。|Me levanto a las seis.|今日は早く起きた。|Hoy me levanté temprano.
+洗う|あらう|1|lavar|d|手を洗います。|Me lavo las manos.|毎日顔を洗う。|Me lavo la cara todos los días.
+着る|きる|2|vestir, ponerse (ropa)|d|制服を着ます。|Me pongo el uniforme.|寒いからコートを着る。|Hace frío, me pongo el abrigo.
+住む|すむ|1|vivir, residir|d|東京に住みます。|Voy a vivir en Tokio.|どこに住む？|¿Dónde vas a vivir?
+行く|いく|1|ir|m|学校に行きます。|Voy a la escuela.|一緒に行かない？|¿No vamos juntos?
+来る|くる|3|venir|m|友達が来ます。|Viene un amigo.|昨日は誰も来なかった。|Ayer no vino nadie.
+帰る|かえる|1|volver a casa|m|六時に帰ります。|Vuelvo a casa a las seis.|もう帰る。|Ya me voy a casa.
+歩く|あるく|1|caminar|m|駅まで歩きます。|Camino hasta la estación.|毎日三十分歩く。|Camino media hora al día.
+走る|はしる|1|correr|m|公園を走ります。|Corro por el parque.|朝は走らない。|Por la mañana no corro.
+乗る|のる|1|subir (a un vehículo)|m|電車に乗ります。|Subo al tren.|バスに乗った。|Me subí al bus.
+入る|はいる|1|entrar|m|部屋に入ります。|Entro a la habitación.|お風呂に入る。|Me voy a bañar.
+話す|はなす|1|hablar, conversar|c|先生と話します。|Hablo con el profesor.|友達と話した。|Hablé con un amigo.
+言う|いう|1|decir|c|何と言いましたか。|¿Qué dijo?|何も言わなかった。|No dije nada.
+聞く|きく|1|escuchar, preguntar|c|音楽を聞きます。|Escucho música.|先生に聞く。|Le preguntaré al profesor.
+読む|よむ|1|leer|c|本を読みます。|Leo un libro.|その漫画、読んだ？|¿Leíste ese manga?
+書く|かく|1|escribir|c|手紙を書きます。|Escribo una carta.|日記を毎日書く。|Escribo mi diario a diario.
+教える|おしえる|2|enseñar, indicar|c|日本語を教えます。|Enseño japonés.|道を教えた。|Indiqué el camino.
+呼ぶ|よぶ|1|llamar, invitar|c|タクシーを呼びます。|Llamo un taxi.|友達を呼ぶ。|Voy a invitar a un amigo.
+買う|かう|1|comprar|t|本を買います。|Compro un libro.|何も買わなかった。|No compré nada.
+売る|うる|1|vender|t|古い車を売ります。|Vendo mi coche viejo.|この店は花を売る。|Esta tienda vende flores.
+働く|はたらく|1|trabajar|t|銀行で働きます。|Trabajo en un banco.|週末は働かない。|No trabajo los fines de semana.
+作る|つくる|1|hacer, preparar|t|晩ご飯を作ります。|Preparo la cena.|ケーキを作った。|Hice un pastel.
+使う|つかう|1|usar|t|パソコンを使います。|Uso la computadora.|このペンを使う？|¿Usas este bolígrafo?
+待つ|まつ|1|esperar|t|ここで待ちます。|Espero aquí.|十分待った。|Esperé diez minutos.
+持つ|もつ|1|llevar, sostener|t|かばんを持ちます。|Llevo el bolso.|傘を持たない。|No llevo paraguas.
+考える|かんがえる|2|pensar, reflexionar|e|よく考えます。|Lo pienso bien.|もう少し考える。|Lo pensaré un poco más.
+思う|おもう|1|pensar, opinar|e|そう思います。|Eso creo.|少し高いと思う。|Creo que es algo caro.
+知る|しる|1|saber, conocer|e|彼を知りません。|No lo conozco.|それ、知らなかった。|No lo sabía.
+忘れる|わすれる|2|olvidar|e|宿題を忘れました。|Olvidé la tarea.|傘を忘れた。|Olvidé el paraguas.
+笑う|わらう|1|reír|e|みんなが笑います。|Todos ríen.|よく笑う人だ。|Es alguien que ríe mucho.
+泣く|なく|1|llorar|e|映画で泣きました。|Lloré con la película.|悲しくて泣いた。|Lloré de tristeza.
+分かる|わかる|1|entender|e|意味が分かります。|Entiendo el significado.|全然分からない。|No entiendo nada.
+見る|みる|2|ver, mirar|d|映画を見ます。|Veo una película.|テレビを見ない。|No veo televisión.
+座る|すわる|1|sentarse|d|ここに座ります。|Me siento aquí.|椅子に座った。|Me senté en la silla.
+立つ|たつ|1|ponerse de pie|d|駅の前に立ちます。|Me paro frente a la estación.|急に立った。|Me levanté de golpe.
+開ける|あける|2|abrir (algo)|d|窓を開けます。|Abro la ventana.|ドアを開けた。|Abrí la puerta.
+閉める|しめる|2|cerrar (algo)|d|店を閉めます。|Cierro la tienda.|窓を閉める。|Voy a cerrar la ventana.
+出る|でる|2|salir|m|八時に家を出ます。|Salgo de casa a las ocho.|電話に出なかった。|No contesté el teléfono.
+着く|つく|1|llegar|m|九時に着きます。|Llego a las nueve.|駅に着いた。|Llegué a la estación.
+泳ぐ|およぐ|1|nadar|m|海で泳ぎます。|Nado en el mar.|泳がない？|¿No nadamos?
+飛ぶ|とぶ|1|volar, saltar|m|鳥が飛びます。|El pájaro vuela.|飛行機は飛ばなかった。|El avión no despegó.
+曲がる|まがる|1|girar, doblar|m|右に曲がります。|Giro a la derecha.|角を曲がる。|Doblo la esquina.
+答える|こたえる|2|responder|c|質問に答えます。|Respondo la pregunta.|すぐ答えた。|Respondí enseguida.
+歌う|うたう|1|cantar|c|日本の歌を歌います。|Canto una canción japonesa.|カラオケで歌う。|Canto en el karaoke.
+送る|おくる|1|enviar, acompañar|c|手紙を送ります。|Envío una carta.|メールを送った。|Envié un correo.
+会う|あう|1|encontrarse con|c|友達に会います。|Me encuentro con un amigo.|明日会う？|¿Nos vemos mañana?
+見せる|みせる|2|mostrar|c|写真を見せます。|Muestro una foto.|切符を見せた。|Mostré el boleto.
+払う|はらう|1|pagar|t|現金で払います。|Pago en efectivo.|私が払う。|Yo pago.
+借りる|かりる|2|pedir prestado|t|本を借ります。|Pido prestado un libro.|傘を借りた。|Pedí prestado un paraguas.
+貸す|かす|1|prestar|t|ペンを貸します。|Presto un bolígrafo.|お金は貸さない。|No presto dinero.
+始める|はじめる|2|empezar (algo)|t|仕事を始めます。|Empiezo el trabajo.|勉強を始めた。|Empecé a estudiar.
+終わる|おわる|1|terminar|t|授業が終わります。|Termina la clase.|やっと終わった。|Por fin terminó.
+する|する|3|hacer|t|毎日運動をします。|Hago ejercicio a diario.|宿題をした。|Hice la tarea.
+覚える|おぼえる|2|memorizar, recordar|e|漢字を覚えます。|Memorizo kanji.|名前を覚えない。|No recuerdo nombres.
+遊ぶ|あそぶ|1|jugar, divertirse|e|公園で遊びます。|Juego en el parque.|友達と遊んだ。|Jugué con amigos.
+疲れる|つかれる|2|cansarse|e|今日は疲れました。|Hoy me cansé.|ちょっと疲れた。|Estoy un poco cansado.
+喜ぶ|よろこぶ|1|alegrarse|e|母が喜びます。|Mi madre se alegra.|みんな喜んだ。|Todos se alegraron.
+困る|こまる|1|tener problemas|e|お金に困ります。|Tengo apuros de dinero.|それは困る。|Eso me trae problemas.
+切る|きる|1|cortar|d|紙をはさみで切ります。|Corto el papel con tijeras.|髪を切った。|Me corté el pelo.
+脱ぐ|ぬぐ|1|quitarse (ropa, calzado)|d|玄関で靴を脱ぎます。|Me quito los zapatos en la entrada.|暑いから上着を脱ぐ。|Hace calor, me quito la chaqueta.
+消す|けす|1|apagar, borrar|d|電気を消します。|Apago la luz.|テレビを消した。|Apagué la tele.
+点ける|つける|2|encender|d|エアコンを点けます。|Enciendo el aire acondicionado.|電気を点けない。|No enciendo la luz.
+浴びる|あびる|2|ducharse, recibir (sol)|d|朝シャワーを浴びます。|Me ducho por la mañana.|夜にシャワーを浴びた。|Me duché de noche.
+磨く|みがく|1|cepillar, pulir|d|歯を磨きます。|Me cepillo los dientes.|靴を磨く。|Lustro los zapatos.
+登る|のぼる|1|subir, escalar|m|山に登ります。|Subo a la montaña.|富士山に登った。|Subí el monte Fuji.
+降りる|おりる|2|bajar, apearse|m|次の駅で降ります。|Me bajo en la próxima estación.|バスを降りた。|Me bajé del bus.
+渡る|わたる|1|cruzar|m|橋を渡ります。|Cruzo el puente.|道を渡らない。|No cruzo la calle.
+戻る|もどる|1|regresar, volver|m|すぐ戻ります。|Vuelvo enseguida.|席に戻った。|Volví a mi asiento.
+通う|かよう|1|ir con regularidad|m|学校に通います。|Asisto a la escuela.|ジムに通う。|Voy al gimnasio con regularidad.
+止まる|とまる|1|detenerse|m|電車が止まります。|El tren se detiene.|時計が止まった。|El reloj se paró.
+頼む|たのむ|1|pedir, encargar|c|料理を頼みます。|Pido comida.|友達に頼んだ。|Se lo pedí a un amigo.
+伝える|つたえる|2|transmitir, comunicar|c|先生に伝えます。|Se lo comunico al profesor.|気持ちを伝える。|Expreso mis sentimientos.
+謝る|あやまる|1|disculparse|c|遅れて謝ります。|Me disculpo por llegar tarde.|ちゃんと謝った。|Me disculpé como se debe.
+誘う|さそう|1|invitar|c|友達を食事に誘います。|Invito a un amigo a comer.|映画に誘う。|Lo invito al cine.
+返す|かえす|1|devolver|c|本を返します。|Devuelvo el libro.|お金を返した。|Devolví el dinero.
+尋ねる|たずねる|2|preguntar, consultar|c|駅員に尋ねます。|Le pregunto al empleado de la estación.|道を尋ねた。|Pregunté por el camino.
+運ぶ|はこぶ|1|transportar, llevar|t|荷物を運びます。|Llevo el equipaje.|机を運んだ。|Trasladé el escritorio.
+集める|あつめる|2|reunir, coleccionar|t|切手を集めます。|Colecciono sellos.|みんなを集める。|Voy a reunir a todos.
+決める|きめる|2|decidir|t|日にちを決めます。|Decido la fecha.|もう決めた。|Ya lo decidí.
+探す|さがす|1|buscar|t|鍵を探します。|Busco la llave.|仕事を探す。|Voy a buscar trabajo.
+見つける|みつける|2|encontrar, descubrir|t|財布を見つけます。|Encuentro la billetera.|いい店を見つけた。|Encontré un buen local.
+直す|なおす|1|arreglar, corregir|t|時計を直します。|Arreglo el reloj.|間違いを直した。|Corregí el error.
+怒る|おこる|1|enojarse|e|先生が怒ります。|El profesor se enoja.|兄が怒った。|Mi hermano mayor se enojó.
+驚く|おどろく|1|sorprenderse|e|ニュースに驚きます。|Me sorprendo con la noticia.|とても驚いた。|Me sorprendí mucho.
+楽しむ|たのしむ|1|disfrutar|e|旅行を楽しみます。|Disfruto del viaje.|音楽を楽しむ。|Disfruto de la música.
+信じる|しんじる|2|creer, confiar|e|友達を信じます。|Confío en mi amigo.|その話は信じない。|No creo esa historia.
+思い出す|おもいだす|1|recordar|e|昔を思い出します。|Recuerdo el pasado.|やっと思い出した。|Por fin lo recordé.
+変わる|かわる|1|cambiar|e|天気が変わります。|El clima cambia.|町が変わった。|La ciudad cambió.
+慣れる|なれる|2|acostumbrarse|e|生活に慣れます。|Me acostumbro a la vida.|もう慣れた。|Ya me acostumbré.
+咲く|さく|1|florecer|n|桜が咲きます。|Los cerezos florecen.|花が咲いた。|Floreció la flor.
+降る|ふる|1|caer (lluvia, nieve)|n|明日は雨が降ります。|Mañana lloverá.|雪が降らなかった。|No nevó.
+光る|ひかる|1|brillar|n|星が光ります。|Las estrellas brillan.|海が光る。|El mar brilla.
+増える|ふえる|2|aumentar|n|人が増えます。|Aumenta la gente.|仕事が増えた。|Aumentó el trabajo.
+減る|へる|1|disminuir|n|お金が減ります。|El dinero disminuye.|体重が減った。|Bajé de peso.
+吹く|ふく|1|soplar|n|強い風が吹きます。|Sopla un viento fuerte.|風が吹かない。|No hay viento.
+晴れる|はれる|2|despejarse|n|午後は晴れます。|Por la tarde se despeja.|やっと晴れた。|Por fin despejó.
+曇る|くもる|1|nublarse|n|空が曇ります。|El cielo se nubla.|急に曇った。|De repente se nubló.
+育つ|そだつ|1|crecer|n|木が育ちます。|El árbol crece.|ここで育った。|Crecí aquí.
+枯れる|かれる|2|marchitarse|n|花が枯れます。|La flor se marchita.|木が枯れた。|El árbol se secó.
+沈む|しずむ|1|hundirse, ponerse (el sol)|n|夕日が沈みます。|El sol se pone.|船が沈んだ。|El barco se hundió.
+流れる|ながれる|2|fluir, correr|n|川が流れます。|El río fluye.|涙が流れた。|Corrieron las lágrimas.
+習う|ならう|1|aprender (de alguien)|s|ピアノを習います。|Aprendo piano.|先生に習う。|Aprendo con el profesor.
+学ぶ|まなぶ|1|estudiar, aprender|s|日本語を学びます。|Estudio japonés.|大学で学んだ。|Estudié en la universidad.
+調べる|しらべる|2|investigar, consultar|s|辞書で調べます。|Consulto en el diccionario.|ネットで調べた。|Lo busqué en internet.
+受ける|うける|2|rendir (examen), recibir|s|試験を受けます。|Rindo el examen.|授業を受ける。|Asisto a clase.
+受かる|うかる|1|aprobar (examen)|s|試験に受かります。|Apruebo el examen.|大学に受かった。|Entré a la universidad.
+落ちる|おちる|2|reprobar, caer|s|試験に落ちました。|Reprobé el examen.|財布が落ちた。|Se cayó la billetera.
+数える|かぞえる|2|contar|s|一から十まで数えます。|Cuento del uno al diez.|人数を数える。|Cuento a las personas.
+間違える|まちがえる|2|equivocarse|s|答えを間違えます。|Me equivoco en la respuesta.|道を間違えた。|Me equivoqué de camino.
+訳す|やくす|1|traducir|s|日本語を訳します。|Traduzco el japonés.|英語に訳した。|Lo traduje al inglés.
+写す|うつす|1|copiar, fotografiar|s|黒板を写します。|Copio la pizarra.|ノートを写した。|Copié los apuntes.
+引く|ひく|1|consultar, tirar|s|辞書を引きます。|Consulto el diccionario.|線を引く。|Trazo una línea.
+出す|だす|1|entregar, sacar|s|宿題を出します。|Entrego la tarea.|レポートを出した。|Entregué el informe.
+勉強する|べんきょうする|3|estudiar|z|毎日日本語を勉強します。|Estudio japonés todos los días.|図書館で勉強した。|Estudié en la biblioteca.
+運動する|うんどうする|3|hacer ejercicio|z|週に三回運動します。|Hago ejercicio tres veces por semana.|毎朝運動する。|Hago ejercicio cada mañana.
+掃除する|そうじする|3|limpiar|z|土曜日に部屋を掃除します。|Los sábados limpio mi cuarto.|台所を掃除した。|Limpié la cocina.
+洗濯する|せんたくする|3|lavar la ropa|z|毎朝洗濯します。|Lavo la ropa cada mañana.|昨日洗濯しなかった。|Ayer no lavé la ropa.
+料理する|りょうりする|3|cocinar|z|夕方に料理します。|Cocino por la tarde.|母は料理するのが好きだ。|A mi madre le gusta cocinar.
+旅行する|りょこうする|3|viajar|z|夏に京都を旅行します。|En verano viajo por Kioto.|去年ヨーロッパを旅行した。|El año pasado viajé por Europa.
+散歩する|さんぽする|3|pasear|z|公園を散歩します。|Paseo por el parque.|犬と散歩する。|Paseo con el perro.
+買い物する|かいものする|3|hacer compras|z|デパートで買い物します。|Hago compras en el centro comercial.|スーパーで買い物した。|Hice compras en el supermercado.
+結婚する|けっこんする|3|casarse|z|来年結婚します。|Me caso el próximo año.|姉は去年結婚した。|Mi hermana mayor se casó el año pasado.
+練習する|れんしゅうする|3|practicar|z|毎日ピアノを練習します。|Practico piano todos los días.|発音を練習する。|Practico la pronunciación.
+質問する|しつもんする|3|hacer una pregunta|z|先生に質問します。|Le hago una pregunta al profesor.|分からなくて質問した。|No entendí y pregunté.
+説明する|せつめいする|3|explicar|z|ルールを説明します。|Explico las reglas.|理由を説明しない。|No explico el motivo.
+電話する|でんわする|3|llamar por teléfono|z|母に電話します。|Llamo a mi madre.|あとで電話する。|Llamo más tarde.
+心配する|しんぱいする|3|preocuparse|z|試験を心配します。|Me preocupo por el examen.|全然心配しなかった。|No me preocupé en absoluto.
+安心する|あんしんする|3|tranquilizarse|z|結果を聞いて安心しました。|Me tranquilicé al oír el resultado.|それを聞いて安心した。|Me tranquilicé al oírlo.
+準備する|じゅんびする|3|preparar(se)|z|朝ご飯を準備します。|Preparo el desayuno.|旅行の準備をする。|Preparo el viaje.
+運転する|うんてんする|3|conducir|z|毎日車を運転します。|Conduzco el coche a diario.|夜は運転しない。|De noche no conduzco.
+予約する|よやくする|3|reservar|z|レストランを予約します。|Reservo un restaurante.|ホテルを予約した。|Reservé el hotel.
+相談する|そうだんする|3|consultar, pedir consejo|z|先生に相談します。|Consulto con el profesor.|友達に相談した。|Lo consulté con un amigo.
+参加する|さんかする|3|participar|z|パーティーに参加します。|Participo en la fiesta.|試合に参加する。|Participo en el partido.
+紹介する|しょうかいする|3|presentar (a alguien)|z|友達を紹介します。|Presento a un amigo.|家族を紹介した。|Presenté a mi familia.
+卒業する|そつぎょうする|3|graduarse|z|三月に大学を卒業します。|Me gradúo de la universidad en marzo.|去年高校を卒業した。|Me gradué del colegio el año pasado.
+入学する|にゅうがくする|3|ingresar a una escuela|z|四月に入学します。|Ingreso a la escuela en abril.|今年入学した。|Ingresé este año.
+出発する|しゅっぱつする|3|partir, salir de viaje|z|七時に出発します。|Salgo a las siete.|もう出発する。|Ya nos vamos.
+到着する|とうちゃくする|3|llegar, arribar|z|飛行機が到着します。|El avión llega.|やっと到着した。|Por fin llegamos.
+注文する|ちゅうもんする|3|pedir (en un local)|z|コーヒーを注文します。|Pido un café.|ラーメンを注文した。|Pedí ramen.
+復習する|ふくしゅうする|3|repasar|z|毎晩復習します。|Repaso cada noche.|昨日の授業を復習した。|Repasé la clase de ayer.
+発表する|はっぴょうする|3|exponer, anunciar|z|明日発表します。|Mañana expongo.|結果を発表する。|Anuncio el resultado.
+出張する|しゅっちょうする|3|viajar por trabajo|w|来週大阪に出張します。|La próxima semana viajo a Osaka por trabajo.|先月、東京に出張した。|El mes pasado viajé a Tokio por trabajo.
+会議する|かいぎする|3|reunirse, tener una reunión|w|午後二時に会議します。|Tenemos reunión a las dos de la tarde.|昨日は長く会議した。|Ayer tuvimos una reunión larga.
+残業する|ざんぎょうする|3|hacer horas extra|w|今日は残業します。|Hoy haré horas extra.|昨日は残業しなかった。|Ayer no hice horas extra.
+出勤する|しゅっきんする|3|ir al trabajo|w|八時に出勤します。|Llego al trabajo a las ocho.|今日は早く出勤した。|Hoy fui temprano al trabajo.
+退職する|たいしょくする|3|renunciar, jubilarse|w|来月会社を退職します。|El próximo mes dejo la empresa.|父は去年退職した。|Mi padre se jubiló el año pasado.
+契約する|けいやくする|3|firmar un contrato|w|新しい家を契約します。|Firmo el contrato de una casa nueva.|携帯を契約した。|Contraté un plan de celular.
+営業する|えいぎょうする|3|abrir (un negocio), vender|w|店は九時に営業します。|La tienda abre a las nueve.|この店は夜も営業する。|Este local también abre de noche.
+面接する|めんせつする|3|hacer una entrevista|w|明日、面接します。|Mañana tengo la entrevista.|三人の学生を面接した。|Entrevisté a tres estudiantes.
+報告する|ほうこくする|3|informar, reportar|w|部長に報告します。|Informo al jefe de departamento.|結果を報告した。|Informé el resultado.
+計画する|けいかくする|3|planificar|w|旅行を計画します。|Planeo un viaje.|新しい事業を計画する。|Planeo un nuevo negocio.
+担当する|たんとうする|3|encargarse de|w|新しい仕事を担当します。|Me encargo del nuevo trabajo.|私がこの客を担当した。|Yo me encargué de este cliente.
+就職する|しゅうしょくする|3|conseguir empleo|w|四月に就職します。|Empiezo a trabajar en abril.|姉は銀行に就職した。|Mi hermana mayor consiguió trabajo en un banco.
+検索する|けんさくする|3|buscar (en internet)|y|ネットで検索します。|Busco en internet.|地図を検索した。|Busqué el mapa.
+保存する|ほぞんする|3|guardar (archivo)|y|ファイルを保存します。|Guardo el archivo.|写真を保存した。|Guardé la foto.
+削除する|さくじょする|3|eliminar, borrar|y|古いデータを削除します。|Elimino los datos viejos.|間違えて削除した。|Lo eliminé por error.
+印刷する|いんさつする|3|imprimir|y|資料を印刷します。|Imprimo el material.|書類を印刷しない。|No imprimo los documentos.
+送信する|そうしんする|3|enviar (mensaje, correo)|y|メールを送信します。|Envío el correo.|メッセージを送信した。|Envié el mensaje.
+登録する|とうろくする|3|registrar(se)|y|アプリに登録します。|Me registro en la aplicación.|名前を登録した。|Registré mi nombre.
+更新する|こうしんする|3|actualizar|y|ソフトを更新します。|Actualizo el programa.|アプリを更新した。|Actualicé la aplicación.
+接続する|せつぞくする|3|conectar(se)|y|ワイファイに接続します。|Me conecto al Wi-Fi.|昨日はネットに接続しなかった。|Ayer no me conecté a internet.
+充電する|じゅうでんする|3|cargar (batería)|y|スマホを充電します。|Cargo el celular.|夜に充電した。|Lo cargué de noche.
+起動する|きどうする|3|iniciar, encender (equipo)|y|パソコンを起動します。|Enciendo la computadora.|アプリを起動する。|Abro la aplicación.
+入力する|にゅうりょくする|3|ingresar (datos)|y|パスワードを入力します。|Ingreso la contraseña.|名前を入力した。|Ingresé mi nombre.
+設定する|せっていする|3|configurar|y|時間を設定します。|Configuro la hora.|アラームを設定した。|Configuré la alarma.`;
+const D=RAW.split("\n").map(l=>{const a=l.split("|");return{k:a[0],h:a[1],g:+a[2],m:a[3],c:a[4],f:a[5],fe:a[6],i:a[7],ie:a[8]}});
+const LV=[["all","Todos"],["d","Vida diaria"],["m","Movimiento"],["c","Comunicación"],["t","Trabajo y compras"],["e","Mente y emociones"],["n","Naturaleza y estados"],["s","Estudio y escuela"],["z","する · Vida y estudio"],["w","する · Trabajo"],["y","する · Tecnología"]];
+const GN={1:"Grupo 1 · 五段 (u)",2:"Grupo 2 · 一段 (ru)",3:"Irregular · 不規則"};
+const U={う:["い","わ"],く:["き","か"],ぐ:["ぎ","が"],す:["し","さ"],つ:["ち","た"],ぬ:["に","な"],ぶ:["び","ば"],む:["み","ま"],る:["り","ら"]};
+const T={う:"った",つ:"った",る:"った",む:"んだ",ぶ:"んだ",ぬ:"んだ",く:"いた",ぐ:"いだ",す:"した"};
+// returns {p:[informal,formal] presente, n:[...] negativo, t:[...] pasado}
+const TE={う:"って",つ:"って",る:"って",む:"んで",ぶ:"んで",ぬ:"んで",く:"いて",ぐ:"いで",す:"して"};
+const M=Object.fromEntries("あa いi うu えe おo かka きki くku けke こko さsa しshi すsu せse そso たta ちchi つtsu てte とto なna にni ぬnu ねne のno はha ひhi ふfu へhe ほho まma みmi むmu めme もmo やya ゆyu よyo らra りri るru れre ろro わwa をo がga ぎgi ぐgu げge ごgo ざza じji ずzu ぜze ぞzo だda でde どdo ばba びbi ぶbu べbe ぼbo ぱpa ぴpi ぷpu ぺpe ぽpo".split(" ").map(x=>[x[0],x.slice(1)]));
+function ro(s){let r="",d=0;for(const c of s){if(c=="っ"){d=1;continue}if("ゃゅょ".includes(c)){r=r.slice(0,-1);if(!/(sh|ch|j)$/.test(r))r+="y";r+={ゃ:"a",ゅ:"u",ょ:"o"}[c];continue}let x=c=="ん"?"n":M[c]||c;if(d){x=(x.startsWith("ch")?"t":x[0])+x;d=0}r+=x}return r}
+const X=(a,b)=>`${a}<br><i>${ro(b)}</i>`;
+function conj(d,w=d.k){const b=w.slice(0,-1),e=w.slice(-1);
+ if(d.g==3){const su=w.endsWith("する"),pf=su?w.slice(0,-2):"",s=su?["し","し"]:w=="来る"?["来","来"]:["き","こ"];return{p:[w,pf+s[0]+"ます"],n:[pf+s[1]+"ない",pf+s[0]+"ません"],t:[pf+s[0]+"た",pf+s[0]+"ました"],te:pf+s[0]+"て"}}
+ if(d.g==2)return{p:[w,b+"ます"],n:[b+"ない",b+"ません"],t:[b+"た",b+"ました"],te:b+"て"};
+ const ik=w=="行く"||w=="いく";
+ return{p:[w,b+U[e][0]+"ます"],n:[b+U[e][1]+"ない",b+U[e][0]+"ません"],t:[ik?b+"った":b+T[e],b+U[e][0]+"ました"],te:ik?b+"って":b+TE[e]}}
+// romaji de los ejemplos: verbo|formal|informal
+const RJ=Object.fromEntries(`食べる|Maiasa pan o tabemasu.|Kore, tabenai?
+飲む|Mizu o nomimasu.|Kōhī nomu?
+寝る|Jūichi-ji ni nemasu.|Mō neta?
+起きる|Rokuji ni okimasu.|Kyō wa hayaku okita.
+洗う|Te o araimasu.|Mainichi kao o arau.
+着る|Seifuku o kimasu.|Samui kara kōto o kiru.
+住む|Tōkyō ni sumimasu.|Doko ni sumu?
+行く|Gakkō ni ikimasu.|Issho ni ikanai?
+来る|Tomodachi ga kimasu.|Kinō wa dare mo konakatta.
+帰る|Rokuji ni kaerimasu.|Mō kaeru.
+歩く|Eki made arukimasu.|Mainichi sanjuppun aruku.
+走る|Kōen o hashirimasu.|Asa wa hashiranai.
+乗る|Densha ni norimasu.|Basu ni notta.
+入る|Heya ni hairimasu.|Ofuro ni hairu.
+話す|Sensei to hanashimasu.|Tomodachi to hanashita.
+言う|Nan to iimashita ka.|Nani mo iwanakatta.
+聞く|Ongaku o kikimasu.|Sensei ni kiku.
+読む|Hon o yomimasu.|Sono manga, yonda?
+書く|Tegami o kakimasu.|Nikki o mainichi kaku.
+教える|Nihongo o oshiemasu.|Michi o oshieta.
+呼ぶ|Takushī o yobimasu.|Tomodachi o yobu.
+買う|Hon o kaimasu.|Nani mo kawanakatta.
+売る|Furui kuruma o urimasu.|Kono mise wa hana o uru.
+働く|Ginkō de hatarakimasu.|Shūmatsu wa hatarakanai.
+作る|Bangohan o tsukurimasu.|Kēki o tsukutta.
+使う|Pasokon o tsukaimasu.|Kono pen o tsukau?
+待つ|Koko de machimasu.|Juppun matta.
+持つ|Kaban o mochimasu.|Kasa o motanai.
+考える|Yoku kangaemasu.|Mō sukoshi kangaeru.
+思う|Sō omoimasu.|Sukoshi takai to omou.
+知る|Kare o shirimasen.|Sore, shiranakatta.
+忘れる|Shukudai o wasuremashita.|Kasa o wasureta.
+笑う|Minna ga waraimasu.|Yoku warau hito da.
+泣く|Eiga de nakimashita.|Kanashikute naita.
+分かる|Imi ga wakarimasu.|Zenzen wakaranai.
+見る|Eiga o mimasu.|Terebi o minai.
+座る|Koko ni suwarimasu.|Isu ni suwatta.
+立つ|Eki no mae ni tachimasu.|Kyū ni tatta.
+開ける|Mado o akemasu.|Doa o aketa.
+閉める|Mise o shimemasu.|Mado o shimeru.
+出る|Hachiji ni ie o demasu.|Denwa ni denakatta.
+着く|Kuji ni tsukimasu.|Eki ni tsuita.
+泳ぐ|Umi de oyogimasu.|Oyoganai?
+飛ぶ|Tori ga tobimasu.|Hikōki wa tobanakatta.
+曲がる|Migi ni magarimasu.|Kado o magaru.
+答える|Shitsumon ni kotaemasu.|Sugu kotaeta.
+歌う|Nihon no uta o utaimasu.|Karaoke de utau.
+送る|Tegami o okurimasu.|Mēru o okutta.
+会う|Tomodachi ni aimasu.|Ashita au?
+見せる|Shashin o misemasu.|Kippu o miseta.
+払う|Genkin de haraimasu.|Watashi ga harau.
+借りる|Hon o karimasu.|Kasa o karita.
+貸す|Pen o kashimasu.|Okane wa kasanai.
+始める|Shigoto o hajimemasu.|Benkyō o hajimeta.
+終わる|Jugyō ga owarimasu.|Yatto owatta.
+する|Mainichi undō o shimasu.|Shukudai o shita.
+覚える|Kanji o oboemasu.|Namae o oboenai.
+遊ぶ|Kōen de asobimasu.|Tomodachi to asonda.
+疲れる|Kyō wa tsukaremashita.|Chotto tsukareta.
+喜ぶ|Haha ga yorokobimasu.|Minna yorokonda.
+困る|Okane ni komarimasu.|Sore wa komaru.
+切る|Kami o hasami de kirimasu.|Kami o kitta.
+脱ぐ|Genkan de kutsu o nugimasu.|Atsui kara uwagi o nugu.
+消す|Denki o keshimasu.|Terebi o keshita.
+点ける|Eakon o tsukemasu.|Denki o tsukenai.
+浴びる|Asa shawā o abimasu.|Yoru ni shawā o abita.
+磨く|Ha o migakimasu.|Kutsu o migaku.
+登る|Yama ni noborimasu.|Fujisan ni nobotta.
+降りる|Tsugi no eki de orimasu.|Basu o orita.
+渡る|Hashi o watarimasu.|Michi o wataranai.
+戻る|Sugu modorimasu.|Seki ni modotta.
+通う|Gakkō ni kayoimasu.|Jimu ni kayou.
+止まる|Densha ga tomarimasu.|Tokei ga tomatta.
+頼む|Ryōri o tanomimasu.|Tomodachi ni tanonda.
+伝える|Sensei ni tsutaemasu.|Kimochi o tsutaeru.
+謝る|Okurete ayamarimasu.|Chanto ayamatta.
+誘う|Tomodachi o shokuji ni sasoimasu.|Eiga ni sasou.
+返す|Hon o kaeshimasu.|Okane o kaeshita.
+尋ねる|Ekiin ni tazunemasu.|Michi o tazuneta.
+運ぶ|Nimotsu o hakobimasu.|Tsukue o hakonda.
+集める|Kitte o atsumemasu.|Minna o atsumeru.
+決める|Nichi ni chi o kimemasu.|Mō kimeta.
+探す|Kagi o sagashimasu.|Shigoto o sagasu.
+見つける|Saifu o mitsukemasu.|Ii mise o mitsuketa.
+直す|Tokei o naoshimasu.|Machigai o naoshita.
+怒る|Sensei ga okorimasu.|Ani ga okotta.
+驚く|Nyūsu ni odorokimasu.|Totemo odoroita.
+楽しむ|Ryokō o tanoshimimasu.|Ongaku o tanoshimu.
+信じる|Tomodachi o shinjimasu.|Sono hanashi wa shinjinai.
+思い出す|Mukashi o omoidashimasu.|Yatto omoidashita.
+変わる|Tenki ga kawarimasu.|Machi ga kawatta.
+慣れる|Seikatsu ni naremasu.|Mō nareta.
+咲く|Sakura ga sakimasu.|Hana ga saita.
+降る|Ashita wa ame ga furimasu.|Yuki ga furanakatta.
+光る|Hoshi ga hikarimasu.|Umi ga hikaru.
+増える|Hito ga fuemasu.|Shigoto ga fueta.
+減る|Okane ga herimasu.|Taijū ga hetta.
+吹く|Tsuyoi kaze ga fukimasu.|Kaze ga fukanai.
+晴れる|Gogo wa haremasu.|Yatto hareta.
+曇る|Sora ga kumorimasu.|Kyū ni kumotta.
+育つ|Ki ga sodachimasu.|Koko de sodatta.
+枯れる|Hana ga karemasu.|Ki ga kareta.
+沈む|Yūhi ga shizumimasu.|Fune ga shizunda.
+流れる|Kawa ga nagaremasu.|Namida ga nagareta.
+習う|Piano o naraimasu.|Sensei ni narau.
+学ぶ|Nihongo o manabimasu.|Daigaku de mananda.
+調べる|Jisho de shirabemasu.|Netto de shirabeta.
+受ける|Shiken o ukemasu.|Jugyō o ukeru.
+受かる|Shiken ni ukarimasu.|Daigaku ni ukatta.
+落ちる|Shiken ni ochimashita.|Saifu ga ochita.
+数える|Ichi kara jū made kazoemasu.|Ninzū o kazoeru.
+間違える|Kotae o machigaemasu.|Michi o machigaeta.
+訳す|Nihongo o yakushimasu.|Eigo ni yakushita.
+写す|Kokuban o utsushimasu.|Nōto o utsushita.
+引く|Jisho o hikimasu.|Sen o hiku.
+出す|Shukudai o dashimasu.|Repōto o dashita.
+勉強する|Mainichi nihongo o benkyō shimasu.|Toshokan de benkyō shita.
+運動する|Shū ni sankai undō shimasu.|Maiasa undō suru.
+掃除する|Doyōbi ni heya o sōji shimasu.|Daidokoro o sōji shita.
+洗濯する|Maiasa sentaku shimasu.|Kinō sentaku shinakatta.
+料理する|Yūgata ni ryōri shimasu.|Haha wa ryōri suru no ga suki da.
+旅行する|Natsu ni Kyōto o ryokō shimasu.|Kyonen Yōroppa o ryokō shita.
+散歩する|Kōen o sanpo shimasu.|Inu to sanpo suru.
+買い物する|Depāto de kaimono shimasu.|Sūpā de kaimono shita.
+結婚する|Rainen kekkon shimasu.|Ane wa kyonen kekkon shita.
+練習する|Mainichi piano o renshū shimasu.|Hatsuon o renshū suru.
+質問する|Sensei ni shitsumon shimasu.|Wakaranakute shitsumon shita.
+説明する|Rūru o setsumei shimasu.|Riyū o setsumei shinai.
+電話する|Haha ni denwa shimasu.|Ato de denwa suru.
+心配する|Shiken o shinpai shimasu.|Zenzen shinpai shinakatta.
+安心する|Kekka o kiite anshin shimashita.|Sore o kiite anshin shita.
+準備する|Asagohan o junbi shimasu.|Ryokō no junbi o suru.
+運転する|Mainichi kuruma o unten shimasu.|Yoru wa unten shinai.
+予約する|Resutoran o yoyaku shimasu.|Hoteru o yoyaku shita.
+相談する|Sensei ni sōdan shimasu.|Tomodachi ni sōdan shita.
+参加する|Pātī ni sanka shimasu.|Shiai ni sanka suru.
+紹介する|Tomodachi o shōkai shimasu.|Kazoku o shōkai shita.
+卒業する|Sangatsu ni daigaku o sotsugyō shimasu.|Kyonen kōkō o sotsugyō shita.
+入学する|Shigatsu ni nyūgaku shimasu.|Kotoshi nyūgaku shita.
+出発する|Shichiji ni shuppatsu shimasu.|Mō shuppatsu suru.
+到着する|Hikōki ga tōchaku shimasu.|Yatto tōchaku shita.
+注文する|Kōhī o chūmon shimasu.|Rāmen o chūmon shita.
+復習する|Maiban fukushū shimasu.|Kinō no jugyō o fukushū shita.
+発表する|Ashita happyō shimasu.|Kekka o happyō suru.
+出張する|Raishū Ōsaka ni shutchō shimasu.|Sengetsu, Tōkyō ni shutchō shita.
+会議する|Gogo niji ni kaigi shimasu.|Kinō wa nagaku kaigi shita.
+残業する|Kyō wa zangō shimasu.|Kinō wa zangō shinakatta.
+出勤する|Hachiji ni shukkin shimasu.|Kyō wa hayaku shukkin shita.
+退職する|Raigetsu kaisha o taishoku shimasu.|Chichi wa kyonen taishoku shita.
+契約する|Atarashii ie o keiyaku shimasu.|Keitai o keiyaku shita.
+営業する|Mise wa kuji ni eigyō shimasu.|Kono mise wa yoru mo eigyō suru.
+面接する|Ashita, mensetsu shimasu.|Sannin no gakusei o mensetsu shita.
+報告する|Buchō ni hōkoku shimasu.|Kekka o hōkoku shita.
+計画する|Ryokō o keikaku shimasu.|Atarashii jigyō o keikaku suru.
+担当する|Atarashii shigoto o tantō shimasu.|Watashi ga kono kyaku o tantō shita.
+就職する|Shigatsu ni shūshoku shimasu.|Ane wa ginkō ni shūshoku shita.
+検索する|Netto de kensaku shimasu.|Chizu o kensaku shita.
+保存する|Fairu o hozon shimasu.|Shashin o hozon shita.
+削除する|Furui dēta o sakujo shimasu.|Machigaete sakujo shita.
+印刷する|Shiryō o insatsu shimasu.|Shorui o insatsu shinai.
+送信する|Mēru o sōshin shimasu.|Messēji o sōshin shita.
+登録する|Apuri ni tōroku shimasu.|Namae o tōroku shita.
+更新する|Sofuto o kōshin shimasu.|Apuri o kōshin shita.
+接続する|Waifai ni setsuzoku shimasu.|Kinō wa netto ni setsuzoku shinakatta.
+充電する|Sumaho o jūden shimasu.|Yoru ni jūden shita.
+起動する|Pasokon o kidō shimasu.|Apuri o kidō suru.
+入力する|Pasuwādo o nyūryoku shimasu.|Namae o nyūryoku shita.
+設定する|Jikan o settei shimasu.|Arāmu o settei shita.`.split("\n").map(l=>{const a=l.split("|");return[a[0],[a[1],a[2]]]}));
+D.forEach(d=>{const r=RJ[d.k]||["",""];d.rf=r[0];d.ri=r[1]});
+D.sort((a,b)=>LV.findIndex(x=>x[0]==a.c)-LV.findIndex(x=>x[0]==b.c));let cur="all";
+const $=id=>document.getElementById(id);
+const grp=()=>cur=="all"?D:D.filter(d=>d.c==cur);
+function render(){
+ $("nav").innerHTML=LV.map(([v,t])=>`<button class="f ${v==cur?"on":""}" data-v="${v}">${t}</button>`).join("");
+ document.querySelectorAll(".f").forEach(b=>b.onclick=()=>{cur=b.dataset.v;render()});
+ const g=grp();
+ $("qb").textContent="Quiz rápido · "+LV.find(x=>x[0]==cur)[1];
+ $("cnt").textContent=g.length+" verbos";
+ $("grid").innerHTML=g.map(d=>{const c=conj(d),r=conj(d,d.h);return`<div class="c"><div class="in"><div class="s fr"><div><b>${d.k}</b><div class="h jp">${d.h}</div><div class="ro"><i>${ro(d.h)}</i></div><small>${d.m}</small></div></div>
+ <div class="s bk"><p><b style="font-size:1.4rem;color:var(--red)">${d.k}</b> <span class="jp">${d.h}</span> <i>(${ro(d.h)})</i><br><b>${d.m}</b> <span class="tag">${GN[d.g]}</span></p>
+ <table class="jp"><tr><th></th><th>Informal</th><th>Formal</th></tr><tr><td>Presente</td><td>${X(c.p[0],r.p[0])}</td><td>${X(c.p[1],r.p[1])}</td></tr><tr><td>Negativo</td><td>${X(c.n[0],r.n[0])}</td><td>${X(c.n[1],r.n[1])}</td></tr><tr><td>Pasado</td><td>${X(c.t[0],r.t[0])}</td><td>${X(c.t[1],r.t[1])}</td></tr><tr><td>Forma て</td><td colspan="2">${X(c.te,r.te)}</td></tr></table>
+ <p><span class="lb">FORMAL · です/ます</span><br><span class="ex jp">${d.f}</span><br><i>${d.rf}</i><br>${d.fe}</p>
+ <p><span class="lb">INFORMAL · forma simple</span><br><span class="ex jp">${d.i}</span><br><i>${d.ri}</i><br>${d.ie}</p></div></div></div>`}).join("");
+ document.querySelectorAll(".c").forEach(c=>c.onclick=()=>c.classList.toggle("fl"));
+}
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+let Q=[],i=0,sc=0;
+$("qb").onclick=()=>{Q=shuf(grp()).slice(0,10);i=0;sc=0;$("home").hidden=true;$("quiz").hidden=false;ask()};
+function ask(){
+ const q=Q[i],cj=conj(q);
+ // alternate: meaning questions and conjugation questions
+ const kinds=[["Formal (presente)",cj.p[1]],["Informal negativo",cj.n[0]],["Informal pasado",cj.t[0]],["Formal pasado",cj.t[1]],["Formal negativo",cj.n[1]],["Forma て",cj.te]];
+ const conjQ=i%2==1?kinds[Math.floor(Math.random()*kinds.length)]:null;
+ let ans,opts,title;
+ if(conjQ){ans=conjQ[1];title="¿Cuál es la forma «"+conjQ[0]+"»?";
+  opts=shuf([...new Set([cj.p[0],cj.p[1],cj.n[0],cj.n[1],cj.t[0],cj.t[1],cj.te])].filter(x=>x!=ans)).slice(0,3);opts=shuf([ans,...opts])}
+ else{ans=q.m;title="¿Qué significa?";opts=shuf([q.m,...shuf([...new Set(D.map(d=>d.m))].filter(m=>m!=q.m)).slice(0,3)])}
+ $("quiz").innerHTML=`<div class="cnt">Pregunta ${i+1} de ${Q.length}</div><div class="big">${q.k}</div><div class="cnt jp" style="font-size:1.2rem">${q.h} (${ro(q.h)})${conjQ?" · "+q.m:""}</div><p>${title}</p>`+
+ opts.map(o=>`<button class="o jp">${o}</button>`).join("")+`<div class="msg" id="msg"></div><button class="q" id="nx" hidden>Siguiente</button>`;
+ document.querySelectorAll(".o").forEach(b=>b.onclick=()=>{
+  const ok=b.textContent==ans;if(ok)sc++;
+  document.querySelectorAll(".o").forEach(x=>{x.disabled=true;if(x.textContent==ans)x.classList.add("ok")});
+  if(!ok)b.classList.add("bad");
+  $("msg").textContent=ok?"✔ ¡Correcto!":"✘ Incorrecto. Respuesta correcta: "+ans;
+  $("msg").style.color=ok?"var(--ok)":"var(--bad)";
+  $("nx").hidden=false;$("nx").textContent=i+1<Q.length?"Siguiente":"Ver puntaje";
+  $("nx").onclick=()=>{i++;i<Q.length?ask():end()};
+ });
+}
+function end(){
+ $("quiz").innerHTML=`<div class="sun">${sc}</div><h2>Puntaje: ${sc} / ${Q.length}</h2><button class="q" id="bk">Volver a las tarjetas</button>`;
+ $("bk").onclick=()=>{$("quiz").hidden=true;$("home").hidden=false;render()};
+}
+render();
+</script></body></html>
